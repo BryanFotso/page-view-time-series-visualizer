@@ -27,20 +27,20 @@ def draw_line_plot():
     return fig
 
 def draw_bar_plot():
-    # Préparation des données
+
     df_bar = df.copy()
     df_bar['year'] = df.index.year
     df_bar['month'] = df.index.month
     df_bar['month_name'] = df.index.strftime('%B')
 
-    # Groupement et tri
+
     df_bar = df_bar.groupby(['year', 'month','month_name'])['value'].mean().reset_index()
     df_bar = df_bar.sort_values(['year', 'month'])
 
-    # Complétez les données manquantes
+
     months = pd.date_range('2020-01', '2020-12', freq='MS').strftime('%B').tolist()
     
-    # Tracé du graphique
+ 
     fig = plt.figure(figsize=(12, 6))
     sns.barplot(
         x="year",
@@ -53,37 +53,9 @@ def draw_bar_plot():
     plt.ylabel('Average Page Views')
     plt.legend(title='Months', loc='upper left')
 
-    # Sauvegarde et retour
+   
     fig.savefig('bar_plot.png')
     return fig
-
-
-
-# def draw_bar_plot():
-#     # Copy and modify data for monthly bar plot
-#     df_bar = df.copy()
-#     df_bar["year"] = df_bar.index.year
-#     df_bar["month"] = df_bar.index.month
-#     df_bar = df_bar.groupby(["year", "month"])["value"].mean().reset_index()
-#     months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    
-#     # Draw bar plot
-#     fig = plt.figure(figsize=(12,6))
-#     sns.barplot(
-#         x="year",
-#         y="value",
-#         hue="months",
-#         hue_order=months,
-#         data=df_bar
-#         )
-#     plt.title("Average Monthly Page Views by Year")
-#     plt.xlabel("Years")
-#     plt.ylabel("Average Page Views")
-#     plt.legend(title="Months", labels=months)
-
-#     # Save image and return fig (don't change this part)
-#     fig.savefig('bar_plot.png')
-#     return fig
 
 def draw_box_plot():
     # Prepare data for box plots (this part is done!)
